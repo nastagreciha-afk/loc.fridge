@@ -1,0 +1,62 @@
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/auth.json
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+/vendor/
+/node_modules/
+
+# Laravel caches
+/storage/app/public
+/storage/framework/cache/data
+/storage/framework/sessions
+/storage/framework/views
+/storage/logs
+
+# Laravel Env files
+.env.testing
+
+# IDE / Editor
+*.swp
+*.swo
+
+# NPM logs
+pnpm-error.log
+
+# Composer logs
+composer.phar
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+/.docker/data
+/.docker/mysql
+/.docker/redis
+
+# Node build
+/public/js/*.map
+/public/css/*.map
+
+# Filament cache / generated files
+/filament/cache

@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+    fridge_web:
+        build:
+            context: ./docker/app
+            dockerfile: Dockerfile
+        container_name: fridge-php
+        ports:
+            - "8010:80"
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+        networks:
+            - laravel
+
+    db:
+        image: mysql:5.7
+        container_name: fridge_db
+        restart: always
+        environment:
+            MYSQL_DATABASE: fridge
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "3310:3306"
+        volumes:
+            - ./tmp/db:/var/lib/mysql
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        networks:
+            - laravel
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: fridge-rabbitmq-1
+        restart: unless-stopped
+        ports:
+            - "5674:5672"
+            - "15674:15672"
+        environment:
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest
+        networks:
+            - laravel
+
+networks:
+    laravel:
+        external: true
