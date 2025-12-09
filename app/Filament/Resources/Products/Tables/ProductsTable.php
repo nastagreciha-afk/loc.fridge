@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class ProductsTable
@@ -14,7 +15,13 @@ class ProductsTable
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->label('ID')->sortable(),
+                TextColumn::make('name')->label('Название')->sortable()->searchable(),
+                TextColumn::make('quantity')->label('Колличество'),
+                TextColumn::make('fridge_id')->label('Fridge')->formatStateUsing(fn ($state, $record) => $record->fridge?->name ?? '-'),
+                TextColumn::make('category_id')->label('Category')->formatStateUsing(fn ($state, $record) => $record->category?->name ?? '-'),
+                TextColumn::make('expires_at')->label('Истекает в')->sortable()->searchable(),
+                TextColumn::make('created_at')->label('Создано')->dateTime(),
             ])
             ->filters([
                 //
