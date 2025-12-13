@@ -2,10 +2,13 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\User\Resources\Fridges\FridgeResource;
+use App\Filament\User\Resources\Products\ProductResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,6 +22,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+
 class UserPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -26,6 +30,7 @@ class UserPanelProvider extends PanelProvider
         return $panel
             ->id('user')
             ->path('user')
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])

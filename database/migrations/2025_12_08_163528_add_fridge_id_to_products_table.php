@@ -11,7 +11,9 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
+            if (!Schema::hasColumn('products', 'fridge_id')) {
             $table->foreignId('fridge_id')->constrained('fridges');
+            }
         });
     }
 
