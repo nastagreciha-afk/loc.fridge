@@ -15,33 +15,14 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->searchable(),
-                TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('quantity')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('unit')
-                    ->searchable(),
-                TextColumn::make('expires_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('arrived')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('fridge_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('product.name')->label('Продукт'),
+                TextColumn::make('product.category.name')->label('Категория'),
+                TextColumn::make('quantity')->label('Количество'),
+                TextColumn::make('product.unit')->label('Ед.'),
+                TextColumn::make('expires_at')->dateTime()->label('Срок годности'),
+                TextColumn::make('arrived')->dateTime()->label('Прибытие'),
+                TextColumn::make('fridge.name')->label('Холодильник'),
+
             ])
             ->filters([
                 //

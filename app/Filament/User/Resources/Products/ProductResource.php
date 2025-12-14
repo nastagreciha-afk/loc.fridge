@@ -9,6 +9,7 @@ use App\Filament\User\Resources\Products\Pages\ViewProduct;
 use App\Filament\User\Resources\Products\Schemas\ProductForm;
 use App\Filament\User\Resources\Products\Schemas\ProductInfolist;
 use App\Filament\User\Resources\Products\Tables\ProductsTable;
+use App\Models\FridgeProduct;
 use App\Models\Product;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -19,11 +20,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ProductResource extends Resource
 {
-    protected static ?string $model = Product::class;
+    protected static ?string $model = FridgeProduct::class;
+    protected static ?string $recordTitleAttribute = null;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
-    protected static ?string $recordTitleAttribute = 'Product';
+
 
     public static function form(Schema $schema): Schema
     {
@@ -49,7 +51,9 @@ class ProductResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+
         return parent::getEloquentQuery()
+            ->with(['product', 'product.category', 'fridge'])
             ->whereHas('fridge', fn ($q) => $q->where('user_id', auth()->id()));
     }
     public static function getPages(): array

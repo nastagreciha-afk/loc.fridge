@@ -8,26 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['category_id', 'name', 'quantity', 'unit', 'expires_at','arrived','fridge_id'];
-
-    protected $dates = ['expires_at','arrived'];
+    protected $fillable = [
+        'category_id',
+        'name',
+        'unit',
+    ];
 
     public function category() {
         return $this->belongsTo(Category::class);
     }
-    public function fridge()
+    public function fridgeProducts()
     {
-        return $this->belongsTo(Fridge::class);
+        return $this->hasMany(FridgeProduct::class);
     }
 
-    public function scopeExpired($query) {
-        return $query->whereDate('expires_at', '<', 'arrived');
-    }
-
-    public function daysLeft()
-    {
-        return $this->expires_at
-            ? now()->diffInDays($this->expires_at, false)
-            : null;
-    }
 }

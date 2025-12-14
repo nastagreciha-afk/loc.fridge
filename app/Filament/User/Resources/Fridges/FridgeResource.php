@@ -50,7 +50,8 @@ class FridgeResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->where('user_id', auth()->id());
+            ->where('user_id', auth()->id())
+            ->withCount('fridgeProducts');
     }
 
     public static function getPages(): array

@@ -11,27 +11,18 @@ class ProductInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
-                TextEntry::make('category_id')
-                    ->numeric(),
-                TextEntry::make('quantity')
-                    ->numeric(),
-                TextEntry::make('unit')
-                    ->placeholder('-'),
-                TextEntry::make('expires_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('arrived')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('fridge_id')
-                    ->numeric(),
+                TextEntry::make('product.name')
+                    ->getStateUsing(fn ($record) => $record->product?->name ?? '-'),
+
+                TextEntry::make('product.category.name')
+                    ->getStateUsing(fn ($record) => $record->product?->category?->name ?? '-'),
+
+                TextEntry::make('product.unit')
+                    ->getStateUsing(fn ($record) => $record->product?->unit ?? '-'),
+
+                TextEntry::make('fridge.name')
+                    ->getStateUsing(fn ($record) => $record->fridge?->name ?? '-'),
+
             ]);
     }
 }

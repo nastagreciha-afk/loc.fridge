@@ -15,18 +15,15 @@ class FridgesTable
     {
         return $table
             ->columns([
-                TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
+                TextColumn::make('user.name')->label('Владелец'),
                 TextColumn::make('location')
                     ->searchable(),
+                TextColumn::make('fridge_products_count')
+                    ->counts('fridgeProducts')
+                    ->label('Продуктов'),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -17,8 +17,9 @@ class Fridge extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function products()
+    public function fridgeProducts()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(FridgeProduct::class);
     }
+
 }
