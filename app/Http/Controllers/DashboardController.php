@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fridge;
+use App\Models\FridgeProduct;
 
 class DashboardController extends Controller
 {
@@ -12,9 +13,12 @@ public function index()
         return redirect()->route('login');
     }
     $user = auth()->user();
-    $fridges = Fridge::all()->where('user_id', $user);
-    return $fridges;
-   // return view('dashboard', [])
+    $fridges = Fridge::where('user_id', $user->id)->get();
+
+    $products = FridgeProduct::with('product','fridge')
+        ->whereHas('fridge', fn ($q) => $q->where('user_id', $user->id))->get();
+
+    return view('dashboard', ['fridges' => $fridges,'products' => $products]);
 }
 
 
